@@ -36,27 +36,25 @@ const instagram = {
             await instagram.page.goto(POST_URL, {waitUntil: 'load'});
 
 
-            await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button > svg');
-            const like = await instagram.page.$('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button > svg');
-            await like.click(); 
-
+            await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div.KL4Bh > img');
+            await instagram.page.click('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div.KL4Bh > img' , {clickCount: 2});
             
             const comment = '@gc_karol @je_goncalvees @jeansousa7 ';
             await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea');
 
-            for(var i = 0; i < 3; i++) {
-                for(var j = 0; j < 5; j++){
+            for(var i = 0; i < 10; i++) {
+                for(var j = 0; j < 4; j++){
                     await instagram.page.type('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea', comment, {delay: 50});
                     await instagram.page.waitFor(500);
                     await instagram.page.keyboard.press('Enter');
     
                     await instagram.page.waitFor(3000);
                 }
-                await instagram.page.waitFor(5000);
                 await instagram.page.reload([{timeout: 0}, {waitUntil: 'load'}])
+                await instagram.page.waitFor(3000 * 60);
             }
             
-        
+            instagram.page.close();
 
         }
         catch(e) {
