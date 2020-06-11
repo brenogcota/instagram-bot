@@ -44,13 +44,18 @@ const instagram = {
             const comment = '@gc_karol @je_goncalvees @jeansousa7 ';
             await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea');
 
-            for(var i = 0; i < 5; i++){
-                await instagram.page.type('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea', comment, {delay: 50});
-                await instagram.page.waitFor(500);
-                await instagram.page.keyboard.press('Enter');
-
+            for(var i = 0; i < 3; i++) {
+                for(var j = 0; j < 5; j++){
+                    await instagram.page.type('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea', comment, {delay: 50});
+                    await instagram.page.waitFor(500);
+                    await instagram.page.keyboard.press('Enter');
+    
+                    await instagram.page.waitFor(3000);
+                }
                 await instagram.page.waitFor(5000);
+                await instagram.page.reload([{timeout: 0}, {waitUntil: 'load'}])
             }
+            
         
 
         }
