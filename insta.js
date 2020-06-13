@@ -35,9 +35,11 @@ const instagram = {
             await instagram.page.goto(POST_URL, {waitUntil: 'load'});
 
 
-            await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div._9AhH0');
-            await instagram.page.click('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div._9AhH0' , {clickCount: 2});
-            
+
+            await instagram.page.$x('//*[@id="react-root"]/section/main/div/div[1]/article/div[1]/div/div/div[2]');
+            const elements = await instagram.page.$x('//*[@id="react-root"]/section/main/div/div[1]/article/div[1]/div/div/div[2]');
+            await elements[0].click({ clickCount: 2 });
+
             var x = 0;
             
             for(var i = 0; i < 30; i++) {
