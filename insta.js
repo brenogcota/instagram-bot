@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const BASE_URL = "https://instagram.com/";
-const POST_URL = "https://www.instagram.com/p/CA0Jk9zhura/";
+const BASE_URL = 'https://instagram.com/';
 
 const instagram = {
     browser: null,
@@ -15,7 +14,7 @@ const instagram = {
         instagram.page = await instagram.browser.newPage();
     },
 
-    login: async(username, password) => {
+    bot: async(username, password, POST_URL, comment) => {
         
 
         try {
@@ -32,26 +31,32 @@ const instagram = {
             await instagram.page.keyboard.press('Enter');
             
 
-            await instagram.page.waitForNavigation({ waitUntil: 'networkidle2'});
+            await instagram.page.waitForNavigation({ waitUntil: 'domcontentloaded'});
             await instagram.page.goto(POST_URL, {waitUntil: 'load'});
 
 
-            await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div.eLAPa._23QFA > div._9AhH0');
-            await instagram.page.click('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div.eLAPa._23QFA > div._9AhH0' , {clickCount: 2});
+            await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div._9AhH0');
+            await instagram.page.click('#react-root > section > main > div > div.ltEKP > article > div._97aPb.wKWK0 > div > div > div._9AhH0' , {clickCount: 2});
             
-            const comment = '@gc_karol @cris_gofer ';
-            await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea');
-
-            for(var i = 0; i < 10; i++) {
-                for(var j = 0; j < 5; j++){
+            var x = 0;
+            
+            for(var i = 0; i < 30; i++) {
+                for(var j = 0; j < 4; j++){
+                    await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea');
                     await instagram.page.type('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > textarea', comment, {delay: 50});
-                    await instagram.page.waitFor(500);
+                    await instagram.page.waitFor(1000);
                     await instagram.page.keyboard.press('Enter');
-    
+
+                    await instagram.page.waitFor(1000);
+                    await instagram.page.waitForSelector('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button');
+                    await instagram.page.click('#react-root > section > main > div > div.ltEKP > article > div.eo2As > section.sH9wk._JgwE > div > form > button' , {clickCount: 1});
+                    
                     await instagram.page.waitFor(3000);
+                    x++;
                 }
                 await instagram.page.reload([{timeout: 0}, {waitUntil: 'load'}])
-                await instagram.page.waitFor(5000 * 60);
+                console.log( x + ' comments');
+                await instagram.page.waitFor(2000 * 60);
             }
             
             instagram.page.close();
