@@ -1,4 +1,5 @@
-<h1> Instagram bot</h1>
+# Instagram bot
+## bot to participate in sweepstakes on instagram
 
 ![Capturar](https://user-images.githubusercontent.com/46490801/84556961-19562200-acfd-11ea-9223-294294112330.PNG)
 
